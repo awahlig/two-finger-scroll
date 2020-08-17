@@ -61,6 +61,7 @@ __published:	// IDE-verwaltete Komponenten
 	TLabel *Label4;
 	TLabel *Label5;
 	TComboBox *tapTwoOne;
+	TCheckBox *cbReverseScrollDirection;
 	void __fastcall Settings1Click(TObject *Sender);
 	void __fastcall FormClose(TObject *Sender, TCloseAction &Action);
 	void __fastcall scrollLinearClick(TObject *Sender);
