@@ -221,6 +221,12 @@ void __fastcall TForm1::SettingsLoad(bool defaults)
 	}
 	else scrollAcc->Position = 75;
 
+	if (settings->ValueExists("reverseScrollDirection") &&
+		settings->ReadInteger("reverseScrollDirection") != 0) {
+		cbReverseScrollDirection->Checked = true;
+	}
+	else cbReverseScrollDirection->Checked = false;
+
 	if (settings->ValueExists("scrollMode")) {
 		switch (settings->ReadInteger("scrollMode")) {
 		case 1:
@@ -295,6 +301,7 @@ void __fastcall TForm1::SettingsSave()
 	settings->WriteInteger("scrollAccEnabled", scrollAccEnabled->Checked);
 	settings->WriteInteger("scrollAcc", scrollAcc->Position);
 	settings->WriteInteger("scrollMode", scrollSmooth->Checked ? 1 : (scrollSmart->Checked ? 2 : 0));
+	settings->WriteInteger("reverseScrollDirection", cbReverseScrollDirection->Checked ? 1 : 0);
 	settings->WriteInteger("tapOneOne", tapOneOne->ItemIndex);
 	settings->WriteInteger("tapTwo", tapTwo->ItemIndex);
 	settings->WriteInteger("tapTwoOne", tapTwoOne->ItemIndex);
@@ -587,7 +594,7 @@ bool __fastcall TForm1::DoScroll(long dx, long dy)
 		ZeroMemory(&i, sizeof(INPUT));
 		i.type = INPUT_MOUSE;
 		i.mi.dwFlags = MOUSEEVENTF_WHEEL;
-		i.mi.mouseData = d;
+		i.mi.mouseData = cbReverseScrollDirection->Checked ? -d : d;
 		SendInput(1, &i, sizeof(INPUT));
 
 		if (scrollMode == 0) // compatibility mode

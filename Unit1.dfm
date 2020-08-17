@@ -68,6 +68,14 @@ object Form1: TForm1
           Caption = 'Start with Windows'
           TabOrder = 0
         end
+        object cbReverseScrollDirection: TCheckBox
+          Left = 16
+          Top = 47
+          Width = 145
+          Height = 17
+          Caption = 'Reverse scroll direction'
+          TabOrder = 1
+        end
       end
     end
     object scrollTab: TTabSheet
